@@ -2,6 +2,7 @@
 
 Sitio personal de portfolio de Verónica Varela (Lead Product Designer). Página única, bilingüe (ES/EN).
 Repo: https://github.com/vvarelamortola/portafolio-vero-varela
+Producción: https://veronica-varela-portfolio.vercel.app/ (Vercel, deploy automático en cada push a `main`)
 
 ## Estructura
 
@@ -9,6 +10,7 @@ Repo: https://github.com/vvarelamortola/portafolio-vero-varela
 index.html        # Todo el sitio: export empaquetado de Claude Design (~427 KB, una sola línea larga por bloque)
 uploads/
   resume.pdf      # CV que descarga el botón "Descargar CV"
+  og-image.png    # Imagen 1200×630 para previews de links (og:image / twitter:image)
   *.jpg           # Avatares de testimonios (Brad, Carlos, Leonardo, Martin, Seba, Su, Valentina)
 ```
 
@@ -34,7 +36,7 @@ Secciones (anclas): `#top` (hero), `#about`, `#experience`, `#skills`, `#educati
 - **Cambios de texto** (ES/EN): decodificar el JSON del bloque `__bundler/template`, editar, y volver a serializarlo con `json.dumps` en el mismo lugar. Editar siempre **ambos idiomas**.
 - **Cambios grandes de diseño**: se hacen en Claude Design y se re-exporta. Al re-exportar hay que **volver a aplicar** a mano, tanto en el `<head>` externo (lo que leen buscadores y previews de links, que no ejecutan JS) como dentro del template (que reemplaza el documento al cargar):
   - `<title>`, favicon "VV" y `lang="es"` en `<html>` (ver commits `3391521`, `86106cd`)
-  - meta `description`, `author`, Open Graph (`og:*`) y `twitter:*`
+  - meta `description`, `author`, `canonical`, Open Graph (`og:*`, incl. `og:image` con URL absoluta de Vercel) y `twitter:*`
 - **CV**: reemplazar `uploads/resume.pdf` manteniendo el nombre.
 - Los assets en `uploads/` se referencian con rutas relativas, así que el sitio debe servirse con `uploads/` al lado de `index.html`.
 
